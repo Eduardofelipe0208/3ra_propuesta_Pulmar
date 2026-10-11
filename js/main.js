@@ -4,8 +4,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     const CONTACT_CONFIG = {
         email: 'Pulmarconstruccionesca@gmail.com',
-        whatsappNumber: '584120936783',
-        displayPhone: '0412-0936783',
+        whatsappNumber: '584140492563', 
+        displayPhone: '0414-0492563',
         formSubmitAjaxUrl: 'https://formsubmit.co/ajax/Pulmarconstruccionesca@gmail.com',
         formSubmitTabUrl: 'https://formsubmit.co/Pulmarconstruccionesca@gmail.com'
     };

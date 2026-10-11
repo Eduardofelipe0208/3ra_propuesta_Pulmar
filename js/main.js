@@ -1,11 +1,13 @@
-/* Archivo: js/main.js | Acción: CREAR */
+/* Archivo: js/main.js | Acción: REEMPLAZAR */
 /* Funcionalidad interactiva: Menú móvil, catálogo de flota del brochure y apertura simultánea de 2 pestañas (WhatsApp y Correo)[cite: 32, 33, 34, 35] */
 
 document.addEventListener('DOMContentLoaded', () => {
     const CONTACT_CONFIG = {
         email: 'Pulmarconstruccionesca@gmail.com',
         whatsappNumber: '584120936783',
-        displayPhone: '0412-0936783'
+        displayPhone: '0412-0936783',
+        formSubmitAjaxUrl: 'https://formsubmit.co/ajax/Pulmarconstruccionesca@gmail.com',
+        formSubmitTabUrl: 'https://formsubmit.co/Pulmarconstruccionesca@gmail.com'
     };
 
     // 1. Año dinámico en el footer
@@ -21,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const navLinks = document.querySelectorAll('.nav-link');
 
     const handleScroll = () => {
+        if (!header) return;
         if (window.scrollY > 30) {
             header.classList.add('scrolled');
         } else {
@@ -94,6 +97,32 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Compatibilidad adicional por si existen pestañas .fleet-tab en el DOM
+    const fleetTabs = document.querySelectorAll('.fleet-tab');
+    const fleetCards = document.querySelectorAll('.fleet-unit-card, .fleet-card');
+
+    fleetTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const filter = tab.getAttribute('data-filter');
+
+            fleetTabs.forEach(t => {
+                t.classList.remove('active');
+                t.setAttribute('aria-selected', 'false');
+            });
+            tab.classList.add('active');
+            tab.setAttribute('aria-selected', 'true');
+
+            fleetCards.forEach(card => {
+                const category = card.getAttribute('data-category');
+                if (filter === 'all' || category === filter) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    });
+
     // 4. Autoselección inteligente en el formulario al pulsar cualquier servicio o unidad
     const serviceSelect = document.getElementById('service-type');
     const vehicleSelect = document.getElementById('vehicle-type');
@@ -119,13 +148,56 @@ document.addEventListener('DOMContentLoaded', () => {
     const outputPanel = document.getElementById('quote-output-panel');
     const summaryPre = document.getElementById('quote-summary-text');
     const copyBtn = document.getElementById('btn-copy-quote');
+    const printBtn = document.getElementById('btn-print-quote');
     const copyFeedback = document.getElementById('copy-feedback');
     const directWaLink = document.getElementById('direct-wa-link');
     const directGmailLink = document.getElementById('direct-gmail-link');
     const hiddenSubject = document.getElementById('hidden-email-subject');
 
+    // Sincronizar el action del formulario y los enlaces visibles de correo en la página hacia Pulmarconstruccionesca@gmail.com
     if (quoteForm) {
-        quoteForm.addEventListener('submit', (event) => {
+        quoteForm.action = CONTACT_CONFIG.formSubmitTabUrl;
+    }
+    document.querySelectorAll('a[href^="mailto:"]').forEach(mailAnchor => {
+        if (mailAnchor.id !== 'direct-gmail-link') {
+            mailAnchor.href = `mailto:${CONTACT_CONFIG.email}`;
+            const textNode = mailAnchor.querySelector('.contact-direct-text, .channel-value');
+            if (textNode) {
+                textNode.textContent = CONTACT_CONFIG.email;
+            }
+        }
+    });
+
+    // Función auxiliar que crea y envía un formulario POST en una nueva pestaña hacia el correo
+    const submitEmailInNewTab = (fieldsObj) => {
+        const tempForm = document.createElement('form');
+        tempForm.method = 'POST';
+        tempForm.action = CONTACT_CONFIG.formSubmitTabUrl;
+        tempForm.target = '_blank';
+        tempForm.style.display = 'none';
+
+        Object.entries(fieldsObj).forEach(([key, value]) => {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = key;
+            input.value = value;
+            tempForm.appendChild(input);
+        });
+
+        document.body.appendChild(tempForm);
+        tempForm.submit();
+        setTimeout(() => {
+            if (document.body.contains(tempForm)) {
+                document.body.removeChild(tempForm);
+            }
+        }, 1000);
+    };
+
+    if (quoteForm) {
+        quoteForm.addEventListener('submit', async (event) => {
+            // Detenemos el submit por defecto para garantizar la validación y abrir las 2 pestañas de forma controlada
+            event.preventDefault();
+
             const companyName = document.getElementById('company-name').value.trim();
             const contactPerson = document.getElementById('contact-person').value.trim();
             const serviceType = document.getElementById('service-type').value;
@@ -135,12 +207,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const operationDetails = document.getElementById('operation-details').value.trim();
 
             if (!companyName || !contactPerson || !operationDetails) {
-                event.preventDefault();
-                errorMsg.hidden = false;
+                if (errorMsg) errorMsg.hidden = false;
                 return;
             }
 
-            errorMsg.hidden = true;
+            if (errorMsg) errorMsg.hidden = true;
 
             const currentDate = new Date().toLocaleDateString('es-VE', {
                 year: 'numeric',
@@ -166,7 +237,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 `• Cantidad de Unidades: ${unitsCount}`,
                 '------------------------------------------------------------',
                 'RUTA, DESTINO Y ESPECIFICACIONES:',
-                operationDetails
+                operationDetails,
+                '------------------------------------------------------------',
+                `Atención Comercial: ${CONTACT_CONFIG.displayPhone} | ${CONTACT_CONFIG.email}`
             ].join('\n');
 
             const whatsappMessage = [
@@ -193,27 +266,65 @@ document.addEventListener('DOMContentLoaded', () => {
             if (directWaLink) directWaLink.href = whatsappUrl;
             if (directGmailLink) directGmailLink.href = gmailWebUrl;
 
-            summaryPre.textContent = summaryDocument;
-            outputPanel.hidden = false;
-            copyFeedback.hidden = false;
-            copyFeedback.textContent = `Se han abierto las 2 pestañas: WhatsApp (${CONTACT_CONFIG.displayPhone}) y envío de correo a ${CONTACT_CONFIG.email}.`;
+            if (summaryPre) summaryPre.textContent = summaryDocument;
+            if (outputPanel) {
+                outputPanel.hidden = false;
+                outputPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+            if (copyFeedback) {
+                copyFeedback.hidden = false;
+                copyFeedback.textContent = `Se han abierto las 2 pestañas: WhatsApp (${CONTACT_CONFIG.displayPhone}) y envío de correo a ${CONTACT_CONFIG.email}.`;
+            }
+
+            const emailPayload = {
+                _subject: emailSubject,
+                _template: 'table',
+                _captcha: 'false',
+                Empresa_o_Institucion: companyName,
+                Persona_de_Contacto: contactPerson,
+                Servicio_Solicitado: serviceType,
+                Unidad_de_la_Flota: vehicleType,
+                Aplicacion_Operativa: modalityType,
+                Cantidad_de_Unidades: unitsCount,
+                Ruta_y_Especificaciones: operationDetails,
+                Fecha_de_Solicitud: currentDate
+            };
 
             // PESTAÑA 1: Apertura de WhatsApp con el mensaje estructurado
             window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
 
-            // PESTAÑA 2: El formulario con target="_blank" ejecuta su envío nativo hacia FormSubmit (Pulmarconstruccionesca@gmail.com) en una segunda pestaña sin ser bloqueado por el navegador.
+            // PESTAÑA 2: Envío POST en pestaña nueva hacia FormSubmit (Pulmarconstruccionesca@gmail.com)
+            submitEmailInNewTab(emailPayload);
+
+            // Envío adicional silencioso vía AJAX si se ejecuta desde un servidor web (http/https)
+            if (window.location.protocol.startsWith('http')) {
+                try {
+                    await fetch(CONTACT_CONFIG.formSubmitAjaxUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify(emailPayload)
+                    });
+                } catch (_) {
+                    // La pestaña principal POST ya procesa el envío
+                }
+            }
         });
     }
 
     if (copyBtn) {
         copyBtn.addEventListener('click', async () => {
-            const textToCopy = summaryPre.textContent;
+            const textToCopy = summaryPre ? summaryPre.textContent : '';
             if (!textToCopy) return;
 
             try {
                 await navigator.clipboard.writeText(textToCopy);
-                copyFeedback.textContent = '¡Resumen copiado exitosamente al portapapeles!';
-                copyFeedback.hidden = false;
+                if (copyFeedback) {
+                    copyFeedback.textContent = '¡Resumen copiado exitosamente al portapapeles!';
+                    copyFeedback.hidden = false;
+                }
             } catch (err) {
                 const tempArea = document.createElement('textarea');
                 tempArea.value = textToCopy;
@@ -221,9 +332,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 tempArea.select();
                 document.execCommand('copy');
                 document.body.removeChild(tempArea);
-                copyFeedback.textContent = '¡Resumen copiado exitosamente al portapapeles!';
-                copyFeedback.hidden = false;
+                if (copyFeedback) {
+                    copyFeedback.textContent = '¡Resumen copiado exitosamente al portapapeles!';
+                    copyFeedback.hidden = false;
+                }
             }
+        });
+    }
+
+    if (printBtn) {
+        printBtn.addEventListener('click', () => {
+            window.print();
         });
     }
 });

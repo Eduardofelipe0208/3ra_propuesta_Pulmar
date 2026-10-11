@@ -1,0 +1,1277 @@
+/* Archivo: css/styles.css | Acción: CREAR */
+/* Paleta Corporativa Obligatoria: Azul #163F6B, Rojo #8D1A1A, Blanco #FFFFFF y Grises Neutros[cite: 28, 29] */
+
+:root {
+    --pulmar-blue: #163F6B;
+    --pulmar-blue-dark: #0F2B4A;
+    --pulmar-red: #8D1A1A;
+    --pulmar-red-hover: #A52020;
+    --pulmar-white: #FFFFFF;
+
+    /* Superficies neutras y oscuras adaptadas de la referencia visual[cite: 28] */
+    --dark-charcoal: #1A232C;
+    --dark-slate: #222D38;
+    --dark-panel: #283542;
+    --gray-lightest: #F4F6F8;
+    --gray-border: #E1E6EB;
+    --gray-text: #5A6572;
+    --gray-muted: #9BA7B4;
+    --text-dark: #151C24;
+
+    /* Tipografía: Oswald reproduce la estética alta y condensada de la referencia[cite: 28] */
+    --font-display: 'Oswald', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+    --container-max: 1160px;
+    --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==========================================================================
+   RESET Y BASE
+   ========================================================================== */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-sans);
+    color: var(--text-dark);
+    background-color: var(--pulmar-white);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    transition: all var(--transition);
+}
+
+ul {
+    list-style: none;
+}
+
+img, svg {
+    display: block;
+    max-width: 100%;
+}
+
+button, input, select, textarea {
+    font-family: inherit;
+    font-size: inherit;
+}
+
+.skip-link {
+    position: absolute;
+    top: -100px;
+    left: 1rem;
+    background: var(--pulmar-red);
+    color: var(--pulmar-white);
+    padding: 0.75rem 1.25rem;
+    z-index: 9999;
+    font-weight: 600;
+}
+
+.skip-link:focus {
+    top: 1rem;
+}
+
+.container {
+    width: 100%;
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.text-dark-blue {
+    color: var(--pulmar-blue) !important;
+}
+
+.text-muted-gray {
+    color: var(--gray-text) !important;
+}
+
+/* ==========================================================================
+   HEADER Y NAVEGACIÓN[cite: 28, 29]
+   ========================================================================== */
+.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: linear-gradient(180deg, rgba(15, 28, 44, 0.92) 0%, rgba(15, 28, 44, 0.65) 100%);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    transition: background-color var(--transition), box-shadow var(--transition);
+}
+
+.site-header.scrolled {
+    background: rgba(18, 26, 36, 0.98);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
+}
+
+.header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 78px;
+    gap: 1.5rem;
+}
+
+.brand-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--pulmar-white);
+}
+
+.brand-icon {
+    width: 42px;
+    height: 42px;
+    background-color: var(--pulmar-blue);
+    color: var(--pulmar-white);
+    border-radius: 50%;
+    padding: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    flex-shrink: 0;
+}
+
+.brand-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.brand-title {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    line-height: 1.05;
+}
+
+.brand-subtitle {
+    font-size: 0.6rem;
+    letter-spacing: 0.14em;
+    color: var(--gray-muted);
+    font-weight: 600;
+}
+
+.nav-list {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.nav-link {
+    font-family: var(--font-display);
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: var(--pulmar-white);
+    opacity: 0.85;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    opacity: 1;
+    color: var(--pulmar-red);
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.btn-header-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: rgba(15, 28, 44, 0.9);
+    color: var(--pulmar-white);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    padding: 0.55rem 1.1rem;
+    font-family: var(--font-display);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+}
+
+.btn-header-cta:hover {
+    background-color: var(--pulmar-red);
+    border-color: var(--pulmar-red);
+}
+
+.icon-xs {
+    width: 14px;
+    height: 14px;
+    color: var(--pulmar-red);
+}
+
+.btn-header-cta:hover .icon-xs {
+    color: var(--pulmar-white);
+}
+
+.mobile-menu-toggle {
+    display: none;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
+.hamburger-line {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background-color: var(--pulmar-white);
+    margin: 4px 0;
+}
+
+/* ==========================================================================
+   1. HERO PRINCIPAL (VISTA CENITAL DE INFRAESTRUCTURA Y CAJA DIVIDIDA)[cite: 28]
+   ========================================================================== */
+.hero-section {
+    position: relative;
+    padding-top: 170px;
+    background-color: var(--pulmar-blue-dark);
+    /* Composición inspirada en la vista aérea de represa/autopista usando estrictamente #163F6B y tonos pizarra[cite: 28] */
+    background-image:
+        radial-gradient(circle at 20% 50%, rgba(22, 63, 107, 0.92) 0%, rgba(15, 43, 74, 0.85) 45%, rgba(26, 35, 44, 0.96) 100%),
+        repeating-radial-gradient(circle at 0% 100%, rgba(255, 255, 255, 0.03) 0, rgba(255, 255, 255, 0.03) 2px, transparent 2px, transparent 18px);
+    color: var(--pulmar-white);
+    overflow: hidden;
+}
+
+/* Trazado curvo arquitectónico que evoca la vía sobre la represa en la imagen de referencia[cite: 28] */
+.hero-aerial-backdrop {
+    position: absolute;
+    top: -10%;
+    left: 22%;
+    width: 520px;
+    height: 120%;
+    border-left: 42px solid rgba(255, 255, 255, 0.05);
+    border-right: 12px solid rgba(141, 26, 26, 0.25);
+    border-radius: 50%;
+    transform: rotate(-8deg);
+    pointer-events: none;
+}
+
+.hero-container {
+    position: relative;
+    z-index: 2;
+    padding-bottom: 5.5rem;
+}
+
+.hero-main-grid {
+    display: grid;
+    grid-template-columns: 1.35fr 0.85fr;
+    align-items: center;
+    gap: 3rem;
+}
+
+.hero-rif-tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    color: var(--gray-muted);
+    margin-bottom: 0.75rem;
+}
+
+.hero-display-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.35rem, 4.8vw, 3.75rem);
+    font-weight: 500;
+    line-height: 1.12;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+}
+
+.btn-solid-accent {
+    display: inline-block;
+    background-color: var(--pulmar-red);
+    color: var(--pulmar-white);
+    font-family: var(--font-display);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.85rem 1.85rem;
+    border: 1px solid var(--pulmar-red);
+}
+
+.btn-solid-accent:hover {
+    background-color: var(--pulmar-blue);
+    border-color: var(--pulmar-white);
+}
+
+/* Bloque derecho con Pin y Barra Vertical Derecha igual a la referencia[cite: 28] */
+.hero-pin-callout {
+    border-right: 3px solid var(--pulmar-red);
+    padding-right: 1.75rem;
+    max-width: 310px;
+    margin-left: auto;
+}
+
+.pin-icon-badge {
+    width: 32px;
+    height: 32px;
+    color: var(--pulmar-red);
+    margin-bottom: 0.75rem;
+}
+
+.pin-callout-text {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--pulmar-white);
+}
+
+/* Caja dividida inferior superpuesta (Mitad texto oscuro / Mitad imagen de unidad)[cite: 28] */
+.hero-overlap-container {
+    position: relative;
+    z-index: 5;
+    margin-bottom: -85px;
+}
+
+.hero-split-teaser {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-width: 780px;
+    margin: 0 auto;
+    box-shadow: 0 22px 48px rgba(0, 0, 0, 0.45);
+}
+
+.split-teaser-text {
+    background-color: var(--dark-panel);
+    padding: 2.5rem 2.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-top: 3px solid var(--pulmar-red);
+}
+
+.teaser-quote {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--gray-muted);
+    line-height: 1.55;
+    margin-bottom: 1.5rem;
+}
+
+.teaser-arrow-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-display);
+    font-size: 0.82rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--pulmar-red);
+}
+
+.teaser-arrow-link:hover {
+    color: var(--pulmar-white);
+}
+
+.split-teaser-visual {
+    background-color: var(--pulmar-blue);
+    background-image:
+        linear-gradient(135deg, rgba(22, 63, 107, 0.82) 0%, rgba(141, 26, 26, 0.75) 100%),
+        repeating-linear-gradient(-45deg, rgba(255, 255, 255, 0.05) 0, rgba(255, 255, 255, 0.05) 2px, transparent 2px, transparent 10px);
+    padding: 2.25rem;
+    display: flex;
+    align-items: flex-end;
+    min-height: 200px;
+}
+
+.teaser-visual-overlay {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.visual-badge {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.visual-caption {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--pulmar-white);
+    letter-spacing: 0.03em;
+}
+
+/* ==========================================================================
+   2. SECCIÓN OSCURA DE FLOTA Y SERVICIOS (4 COLUMNAS + 2 TARJETAS SUPERPUESTAS)[cite: 28, 32, 33, 34, 35]
+   ========================================================================== */
+.fleet-dark-section {
+    background-color: var(--dark-charcoal);
+    color: var(--pulmar-white);
+    padding: 10.5rem 0 0;
+}
+
+.fleet-section-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-bottom: 3.5rem;
+    flex-wrap: wrap;
+}
+
+.section-heading-light {
+    font-family: var(--font-display);
+    font-size: clamp(1.85rem, 3.2vw, 2.5rem);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--pulmar-white);
+}
+
+.header-inline-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-display);
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    color: var(--pulmar-red);
+}
+
+.header-inline-link:hover {
+    color: var(--pulmar-white);
+}
+
+/* 4 Columnas con Iconos Lineales de Flota[cite: 28] */
+.fleet-four-columns {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2.25rem;
+    margin-bottom: 4.5rem;
+}
+
+.fleet-col-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.fleet-col-title {
+    font-family: var(--font-display);
+    font-size: 1.08rem;
+    font-weight: 500;
+    color: var(--pulmar-white);
+    margin-bottom: 1.25rem;
+    letter-spacing: 0.02em;
+}
+
+.fleet-line-icon {
+    width: 68px;
+    height: 44px;
+    color: var(--pulmar-red);
+    margin-bottom: 1.25rem;
+}
+
+.fleet-col-desc {
+    font-size: 0.84rem;
+    color: var(--gray-muted);
+    line-height: 1.65;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+}
+
+.fleet-col-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--pulmar-red);
+}
+
+.fleet-col-arrow:hover {
+    color: var(--pulmar-white);
+    transform: translateX(4px);
+}
+
+/* 2 Grandes Tarjetas con Barra Inferior de Color ("Hard to reach places" / "Long-range transport")[cite: 28] */
+.dual-feature-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+}
+
+.feature-photo-card {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 42px rgba(0, 0, 0, 0.35);
+}
+
+.feature-photo-area {
+    height: 230px;
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: var(--pulmar-blue);
+    position: relative;
+}
+
+.photo-rugged-terrain {
+    background-image:
+        linear-gradient(180deg, rgba(26, 35, 44, 0.35) 0%, rgba(22, 63, 107, 0.92) 100%),
+        repeating-linear-gradient(35deg, rgba(255, 255, 255, 0.04) 0, rgba(255, 255, 255, 0.04) 3px, transparent 3px, transparent 14px);
+}
+
+.photo-highway-routes {
+    background-image:
+        linear-gradient(180deg, rgba(22, 63, 107, 0.35) 0%, rgba(26, 35, 44, 0.92) 100%),
+        repeating-linear-gradient(-35deg, rgba(255, 255, 255, 0.04) 0, rgba(255, 255, 255, 0.04) 3px, transparent 3px, transparent 14px);
+}
+
+.photo-inner-badge {
+    align-self: flex-start;
+    background-color: rgba(26, 35, 44, 0.85);
+    color: var(--pulmar-white);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    padding: 0.35rem 0.75rem;
+}
+
+.photo-vehicle-Render span {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--pulmar-white);
+}
+
+.feature-bottom-bar {
+    display: block;
+    text-align: center;
+    padding: 1.15rem 1.5rem;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--pulmar-white);
+}
+
+.bar-red {
+    background-color: var(--pulmar-red);
+}
+
+.bar-red:hover {
+    background-color: var(--pulmar-red-hover);
+}
+
+.bar-blue {
+    background-color: var(--pulmar-blue);
+}
+
+.bar-blue:hover {
+    background-color: var(--pulmar-blue-dark);
+}
+
+/* Barra Interactiva de Especificaciones del Brochure[cite: 33, 34, 35] */
+.fleet-filter-strip {
+    background-color: var(--dark-slate);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 1.75rem 2rem;
+    transform: translateY(50%);
+    position: relative;
+    z-index: 4;
+    box-shadow: 0 18px 36px rgba(0, 0, 0, 0.25);
+}
+
+.filter-strip-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.15rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.strip-label {
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    color: var(--gray-muted);
+}
+
+.strip-buttons {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.strip-tab {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--pulmar-white);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 0.45rem 0.95rem;
+    font-family: var(--font-display);
+    font-size: 0.76rem;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    transition: all var(--transition);
+}
+
+.strip-tab:hover,
+.strip-tab.active {
+    background-color: var(--pulmar-red);
+    border-color: var(--pulmar-red);
+}
+
+.strip-detail-panel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.strip-detail-content strong {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.25rem;
+    color: var(--pulmar-white);
+}
+
+.strip-detail-content p {
+    font-size: 0.85rem;
+    color: var(--gray-muted);
+}
+
+.btn-strip-quote {
+    background-color: var(--pulmar-blue);
+    color: var(--pulmar-white);
+    padding: 0.65rem 1.25rem;
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.btn-strip-quote:hover {
+    background-color: var(--pulmar-red);
+}
+
+/* ==========================================================================
+   3. SECCIÓN BLANCA: ANILLOS CIRCULARES Y "SOBRE NUESTRA EMPRESA"[cite: 28, 30, 31]
+   ========================================================================== */
+.white-corporate-section {
+    background-color: var(--pulmar-white);
+    padding: 9.5rem 0 6rem;
+}
+
+/* 4 Anillos Circulares de Progreso[cite: 28] */
+.circular-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    max-width: 920px;
+    margin: 0 auto 6rem;
+    text-align: center;
+}
+
+.metric-circle-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.circle-chart {
+    position: relative;
+    width: 124px;
+    height: 124px;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.circle-svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+.circle-bg {
+    fill: none;
+    stroke: var(--gray-lightest);
+    stroke-width: 5;
+}
+
+.circle-progress {
+    fill: none;
+    stroke-width: 5;
+    stroke-linecap: round;
+}
+
+.progress-red {
+    stroke: var(--pulmar-red);
+}
+
+.progress-blue {
+    stroke: var(--pulmar-blue);
+}
+
+.circle-value {
+    position: absolute;
+    font-family: var(--font-display);
+    font-size: 1.65rem;
+    font-weight: 500;
+    color: var(--text-dark);
+}
+
+.circle-caption {
+    font-family: var(--font-display);
+    font-size: 0.76rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: var(--gray-text);
+}
+
+/* Bloque "About our company" con Tarjeta Superpuesta[cite: 28, 30, 31] */
+.about-company-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.about-visual-column {
+    position: relative;
+    padding-bottom: 2rem;
+}
+
+.about-architectural-frame {
+    height: 390px;
+    width: 88%;
+    background-color: var(--pulmar-blue);
+    background-image:
+        linear-gradient(145deg, rgba(22, 63, 107, 0.95) 0%, rgba(15, 43, 74, 0.85) 100%),
+        repeating-linear-gradient(60deg, rgba(255, 255, 255, 0.05) 0, rgba(255, 255, 255, 0.05) 2px, transparent 2px, transparent 16px);
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    padding: 2rem;
+    overflow: hidden;
+}
+
+.arch-building-lines {
+    position: absolute;
+    bottom: -20%;
+    left: 10%;
+    width: 75%;
+    height: 90%;
+    border-top: 4px solid rgba(255, 255, 255, 0.22);
+    border-left: 4px solid rgba(255, 255, 255, 0.15);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
+    transform: skewY(-14deg);
+}
+
+.arch-rif-watermark {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    letter-spacing: 0.14em;
+    color: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    padding: 0.35rem 0.75rem;
+}
+
+.about-floating-dark-box {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 78%;
+    background-color: var(--dark-panel);
+    color: var(--pulmar-white);
+    padding: 2.25rem;
+    border-left: 4px solid var(--pulmar-red);
+    box-shadow: 0 18px 38px rgba(0, 0, 0, 0.22);
+}
+
+.about-floating-dark-box p {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--pulmar-white);
+}
+
+.section-heading-dark {
+    font-family: var(--font-display);
+    font-size: clamp(1.85rem, 3vw, 2.4rem);
+    font-weight: 500;
+    color: var(--text-dark);
+    margin-bottom: 1.25rem;
+}
+
+.about-paragraph-lead {
+    font-size: 0.9rem;
+    color: var(--gray-text);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+}
+
+.mission-vision-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.mv-box {
+    background-color: var(--gray-lightest);
+    border-left: 3px solid var(--pulmar-blue);
+    padding: 1.25rem;
+}
+
+.mv-title {
+    font-family: var(--font-display);
+    font-size: 0.88rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--pulmar-blue);
+    margin-bottom: 0.45rem;
+}
+
+.mv-text {
+    font-size: 0.8rem;
+    color: var(--gray-text);
+    line-height: 1.6;
+}
+
+/* ==========================================================================
+   4. SECCIÓN DE CONTACTO Y CONFIGURADOR B2B
+   ========================================================================== */
+.contact-section {
+    background-color: var(--gray-lightest);
+    padding: 5.5rem 0;
+    border-top: 1px solid var(--gray-border);
+}
+
+.contact-wrapper-grid {
+    display: grid;
+    grid-template-columns: 0.95fr 1.15fr;
+    gap: 3.5rem;
+    align-items: start;
+}
+
+.eyebrow-tag {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: var(--pulmar-red);
+    margin-bottom: 0.4rem;
+}
+
+.contact-intro {
+    font-size: 0.9rem;
+    color: var(--gray-text);
+    margin-bottom: 2rem;
+    line-height: 1.65;
+}
+
+.contact-cards-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.contact-channel-card {
+    background-color: var(--pulmar-white);
+    border: 1px solid var(--gray-border);
+    padding: 1.2rem 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+}
+
+.contact-channel-card:not(.card-static):hover {
+    border-color: var(--pulmar-red);
+    transform: translateX(4px);
+}
+
+.channel-icon {
+    width: 42px;
+    height: 42px;
+    background-color: rgba(141, 26, 26, 0.1);
+    color: var(--pulmar-red);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 9px;
+    flex-shrink: 0;
+}
+
+.channel-icon.icon-blue {
+    background-color: rgba(22, 63, 107, 0.1);
+    color: var(--pulmar-blue);
+}
+
+.channel-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.channel-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--gray-text);
+}
+
+.channel-value {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-dark);
+    letter-spacing: 0.03em;
+}
+
+/* Caja del Formulario */
+.form-container-box {
+    background-color: var(--pulmar-white);
+    border: 1px solid var(--gray-border);
+    border-top: 4px solid var(--pulmar-blue);
+    padding: 2.4rem;
+    box-shadow: 0 16px 36px rgba(21, 28, 36, 0.06);
+}
+
+.form-box-heading {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--text-dark);
+    margin-bottom: 1.5rem;
+}
+
+.form-grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.form-group {
+    margin-bottom: 1.1rem;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 0.35rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.7rem 0.85rem;
+    border: 1px solid var(--gray-border);
+    background-color: var(--pulmar-white);
+    color: var(--text-dark);
+    font-size: 0.86rem;
+    transition: border-color var(--transition);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--pulmar-blue);
+}
+
+.form-error-alert {
+    color: var(--pulmar-red);
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.btn-submit-full {
+    width: 100%;
+    background-color: var(--pulmar-red);
+    color: var(--pulmar-white);
+    border: none;
+    padding: 0.95rem 1.5rem;
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    transition: background-color var(--transition);
+}
+
+.btn-submit-full:hover {
+    background-color: var(--pulmar-blue);
+}
+
+/* Panel de confirmación de envío */
+.quote-result-panel {
+    margin-top: 1.75rem;
+    padding-top: 1.5rem;
+    border-top: 2px solid var(--gray-border);
+}
+
+.result-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.78rem;
+    margin-bottom: 0.75rem;
+}
+
+.result-badge {
+    background-color: var(--pulmar-blue);
+    color: var(--pulmar-white);
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 0.2rem 0.55rem;
+}
+
+.result-pre {
+    background-color: var(--gray-lightest);
+    border: 1px solid var(--gray-border);
+    padding: 1rem;
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    white-space: pre-wrap;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.result-actions-row {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.btn-result-wa,
+.btn-result-mail,
+.btn-result-copy {
+    flex: 1;
+    min-width: 130px;
+    padding: 0.65rem 0.75rem;
+    font-family: var(--font-display);
+    font-size: 0.76rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-align: center;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.btn-result-wa {
+    background-color: var(--pulmar-red);
+    color: var(--pulmar-white);
+    border: 1px solid var(--pulmar-red);
+}
+
+.btn-result-mail,
+.btn-result-copy {
+    background-color: var(--pulmar-white);
+    color: var(--pulmar-blue);
+    border: 1px solid var(--pulmar-blue);
+}
+
+.btn-result-mail:hover,
+.btn-result-copy:hover {
+    background-color: var(--pulmar-blue);
+    color: var(--pulmar-white);
+}
+
+.result-feedback {
+    margin-top: 0.75rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--pulmar-blue);
+}
+
+/* ==========================================================================
+   FOOTER (ESTRUCTURA DE 3 COLUMNAS FIEL A LA REFERENCIA)[cite: 28]
+   ========================================================================== */
+.site-footer {
+    background-color: var(--pulmar-white);
+    border-top: 1px solid var(--gray-border);
+}
+
+.footer-top-band {
+    background-color: var(--gray-lightest);
+    padding: 3.5rem 0;
+}
+
+.footer-three-cols {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1fr;
+    align-items: center;
+    gap: 2rem;
+}
+
+.footer-col-center {
+    text-align: center;
+    font-size: 0.82rem;
+    color: var(--gray-text);
+    line-height: 1.65;
+}
+
+.footer-col-socials {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+.footer-sq-btn {
+    width: 36px;
+    height: 36px;
+    background-color: var(--pulmar-white);
+    border: 1px solid var(--gray-border);
+    color: var(--text-dark);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+}
+
+.footer-sq-btn:hover {
+    background-color: var(--pulmar-red);
+    border-color: var(--pulmar-red);
+    color: var(--pulmar-white);
+}
+
+.footer-bottom-band {
+    background-color: var(--pulmar-white);
+    padding: 1.25rem 0;
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--gray-text);
+    border-top: 1px solid var(--gray-border);
+}
+
+/* ==========================================================================
+   DISEÑO RESPONSIVE Y MOBILE-FIRST
+   ========================================================================== */
+@media (max-width: 992px) {
+    .hero-main-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-pin-callout {
+        margin-left: 0;
+        border-right: none;
+        border-left: 3px solid var(--pulmar-red);
+        padding-right: 0;
+        padding-left: 1.25rem;
+    }
+
+    .fleet-four-columns,
+    .circular-metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .about-company-grid,
+    .contact-wrapper-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-three-cols {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .footer-logo,
+    .footer-col-socials {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .mobile-menu-toggle {
+        display: block;
+    }
+
+    .main-nav {
+        position: fixed;
+        top: 78px;
+        left: 0;
+        width: 100%;
+        background-color: var(--dark-charcoal);
+        padding: 1.5rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        transform: translateY(-150%);
+        transition: transform var(--transition);
+    }
+
+    .main-nav.open {
+        transform: translateY(0);
+    }
+
+    .nav-list {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .hero-split-teaser,
+    .fleet-four-columns,
+    .dual-feature-cards,
+    .circular-metrics-grid,
+    .mission-vision-cards,
+    .form-grid-2 {
+        grid-template-columns: 1fr;
+    }
+
+    .fleet-filter-strip {
+        transform: translateY(2rem);
+    }
+
+    .about-architectural-frame {
+        width: 100%;
+        height: 300px;
+    }
+
+    .about-floating-dark-box {
+        position: relative;
+        width: 100%;
+    }
+}
